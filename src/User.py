@@ -1,5 +1,5 @@
 class User:
-    def __init__(self, dni, name, number_of_checkouts=0, number_of_checkins=0):
+    def __init__(self, dni: int, name: str, number_of_checkouts=0, number_of_checkins=0):
         self.__dni = dni
         self.__name = name
         self.__number_of_checkouts = number_of_checkouts
@@ -19,8 +19,8 @@ class User:
         return self.__number_of_checkins
 
     # Setters
-    def increment_checkouts(self):
-        pass
+    def increment_checkouts(self) -> None:
+        self.__number_of_checkouts += 1
 
-    def increment_checkins(self):
-        pass
+    def increment_checkins(self) -> None:
+        self.__number_of_checkins += 1
