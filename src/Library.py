@@ -1,6 +1,4 @@
-from typing import List, Union
-# from typing_extensions import Self
-
+from typing import List, Tuple
 from src.Book import Book
 from src.User import User
 
@@ -8,8 +6,8 @@ from src.User import User
 class Library:
     __books: List[Book]
     __users: List[User]
-    __checked_out_books: List[List[Union[str, int]]]
-    __checked_in_books: List[List[Union[str, int]]]
+    __checked_out_books: List[Tuple[str, int, str]]
+    __checked_in_books: List[Tuple[str, int, str]]
 
     def __init__(self) -> None:
         self.__books = []
@@ -58,7 +56,7 @@ class Library:
         if not book.is_available():
             return f"Book {isbn} is not available"
 
-        self.__checked_out_books.append([isbn, dni, due_date])
+        self.__checked_out_books.append((isbn, dni, due_date))
         book.set_available(False)
         return f"User {dni} checked out book {isbn}"
 
@@ -80,7 +78,7 @@ class Library:
             new_books.append(old_book)
 
         self.__checked_out_books = new_books
-        self.__checked_in_books.append([isbn, dni, returned_date])
+        self.__checked_in_books.append((isbn, dni, returned_date))
         book.set_available(True)
         return f"Book {isbn} checked in by user {dni}"
 
