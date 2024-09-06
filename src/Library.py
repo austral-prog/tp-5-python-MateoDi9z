@@ -1,5 +1,5 @@
-from typing import List
-from typing_extensions import Self
+from typing import List, Union
+# from typing_extensions import Self
 
 from src.Book import Book
 from src.User import User
@@ -7,6 +7,9 @@ from src.User import User
 
 class Library:
     __books: List[Book]
+    __users: List[User]
+    __checked_out_books: List[List[Union[str, int]]]
+    __checked_in_books: List[List[Union[str, int]]]
 
     def __init__(self) -> None:
         self.__books = []
@@ -61,8 +64,12 @@ class Library:
 
     # 2.2 Check in book
     def check_in_book(self, isbn: str, dni: int, returned_date: str) -> str:
-        book = self.find_book(isbn)
+        check_book = self.find_book(isbn)
 
+        if not isinstance(check_book, Book):
+            return f"Unable to find the data for the values: ISBN {isbn} and DNI: {dni}"
+
+        book: Book = check_book
         if book.is_available():
             return f"Book {isbn} is not available"
 
