@@ -39,4 +39,4 @@ class Book:
     def __eq__(self: Self, other: object) -> bool:
         if not isinstance(other, Book):
             return False
-        return self.__isbn == other.__isbn
+        return other.get_isbn() == self.get_isbn()
