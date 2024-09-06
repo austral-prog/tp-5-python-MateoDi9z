@@ -1,4 +1,5 @@
-from typing import List, Any
+from typing import List
+from typing_extensions import Self
 
 from src.Book import Book
 from src.User import User
@@ -7,7 +8,7 @@ from src.User import User
 class Library:
     __books: List[Book]
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.__books = []
         self.__users = []
         self.__checked_out_books = []
@@ -20,14 +21,14 @@ class Library:
     def get_users(self) -> List[User]:
         return self.__users
 
-    def get_checked_out_books(self):
+    def get_checked_out_books(self) -> list:
         return self.__checked_out_books
 
-    def get_checked_in_books(self):
+    def get_checked_in_books(self) -> list:
         return self.__checked_in_books
 
     # 1.1 Add Book
-    def add_book(self, isbn, title, author) -> None:
+    def add_book(self, isbn: str, title: str, author: str) -> None:
         book = Book(isbn, title, author)
         books = self.get_books()
 
@@ -39,12 +40,12 @@ class Library:
         self.__books.append(book)
 
     # 1.2 List All Books
-    def list_all_books(self):
+    def list_all_books(self) -> None:
         for book in self.__books:
             print(f"ISBN: {book.get_isbn()}, Title: {book.get_title()}, Author: {book.get_author()}")
 
     # 2.1 Check out book
-    def check_out_book(self, isbn, dni, due_date):
+    def check_out_book(self, isbn: str, dni: int, due_date: str) -> str:
         book = self.find_book(isbn)
         user = self.find_user(dni)
 
@@ -59,7 +60,7 @@ class Library:
         return f"User {dni} checked out book {isbn}"
 
     # 2.2 Check in book
-    def check_in_book(self, isbn, dni, returned_date):
+    def check_in_book(self, isbn: str, dni: int, returned_date: str) -> str:
         book = self.find_book(isbn)
 
         if book.is_available():
@@ -77,7 +78,7 @@ class Library:
         return f"Book {isbn} checked in by user {dni}"
 
     # Utils
-    def add_user(self, dni, name):
+    def add_user(self, dni: int, name: str) -> None:
         user = User(dni, name)
         users = self.get_users()
 
@@ -88,7 +89,7 @@ class Library:
 
         self.__users.append(user)
 
-    def find_user(self, dni) -> bool | User:
+    def find_user(self, dni: int) -> bool | User:
         if not len(self.get_users()):
             return False
         for user in self.get_users():
@@ -96,7 +97,7 @@ class Library:
                 return user
         return False
 
-    def find_book(self, isbn) -> bool | Book:
+    def find_book(self, isbn: str) -> bool | Book:
         if not len(self.get_books()):
             return False
         for book in self.get_books():
